@@ -1,0 +1,27 @@
+# Ignore everything by default
+*
+
+# Only keep these specific files
+!README.md
+!train_tet.py
+
+# Keep essential directories and their contents
+!arguments/
+!arguments/**
+!scene/
+!scene/**
+!utils/
+!utils/**
+!gaussian_renderer/
+!gaussian_renderer/**
+!lpipsPyTorch/
+!lpipsPyTorch/**
+!src/
+!src/**
+!submodules/
+!submodules/**
+!assets/
+!assets/**
+
+# Keep the gitignore itself
+!.gitignore

@@ -1,0 +1,4 @@
+# ninja log v5
+1	13490	1731933039740327942	/home/juyonggroup/kevin2000/project/gaussian-splatting/submodules/simple-knn/build/temp.linux-x86_64-cpython-39/simple_knn.o	178c0edc8ac072b8
+1	18349	1731933044626776044	/home/juyonggroup/kevin2000/project/gaussian-splatting/submodules/simple-knn/build/temp.linux-x86_64-cpython-39/ext.o	3f3b102fac9353dc
+2	53104	1731933079352211831	/home/juyonggroup/kevin2000/project/gaussian-splatting/submodules/simple-knn/build/temp.linux-x86_64-cpython-39/spatial.o	ae4603b2428726fa
