@@ -1,0 +1,8 @@
+opencv-python
+joblib
+plyfile
+
+
+./submodules/diff-gaussian-rasterization
+./submodules/simple-knn
+./submodules/fused-ssim
