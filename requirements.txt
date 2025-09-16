@@ -1,8 +1,8 @@
 opencv-python
 joblib
 plyfile
+meshio
+tqdm
+nerfstudio
+git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 
-
-submodules/diff-gaussian-rasterization
-submodules/simple-knn
-submodules/fused-ssim
