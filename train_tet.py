@@ -91,8 +91,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
 
         if pipe.freeze:    
             tets.freeze_inn()
-        if iteration == 1:
-            tets.freeze_inn()
+        # if iteration == 1:
+        #    tets.freeze_inn()
         # if iteration == 0:
         #     tets.freeze_inn()
         # if iteration == opt.prune_only_iter:
@@ -140,19 +140,16 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         loss.backward()
 
         if not tets.freeze:
-            # 手动将 INN 网络和 deformation_code 的 NaN/inf 梯度设置为 0
             if tets.inn_network is not None:
-                # 处理所有参数的梯度中的NaN和inf
                 for param_group in tets.optimizer.param_groups:
                     for param in param_group["params"]:
                         if param.grad is not None:
                             torch.nan_to_num(param.grad, nan=0.0, posinf=0.0, neginf=0.0, out=param.grad)
                 
-            # 添加 INN 网络梯度裁剪
+         
             if tets.inn_network is not None and tets.clip_grad_norm_inn:
                 torch.nn.utils.clip_grad_norm_(tets.inn_network.parameters(), tets.max_grad_norm_inn)
             
-            # 如果 deformation_code 也被视为 INN 网络的一部分并且需要裁剪
             if hasattr(tets, 'deformation_code') and tets.deformation_code is not None and tets.deformation_code.grad is not None and tets.clip_grad_norm_inn:
                 torch.nn.utils.clip_grad_norm_([tets.deformation_code], tets.max_grad_norm_inn)
 
@@ -205,21 +202,21 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 #         post_densify_image = torch.clamp(post_densify_render["render"], 0.0, 1.0)
                 #         torchvision.utils.save_image(post_densify_image, os.path.join(scene.model_path, "densify_comparison", f"iter_{iteration}_post_densify.png"))
                         
-                # if iteration > opt.densify_from_iter and iteration % opt.densification_interval == 0:
-                #     size_threshold = 20 if iteration > opt.opacity_reset_interval else None
+                if iteration > opt.densify_from_iter and iteration % opt.densification_interval == 0:
+                    size_threshold = 20 if iteration > opt.opacity_reset_interval else None
                     
-                #     # 在密度化前保存当前视角的渲染图像
-                #     if not os.path.exists(os.path.join(scene.model_path, "densify_comparison")):
-                #         os.makedirs(os.path.join(scene.model_path, "densify_comparison"), exist_ok=True)
+                    # 在密度化前保存当前视角的渲染图像
+                    # if not os.path.exists(os.path.join(scene.model_path, "densify_comparison")):
+                    #     os.makedirs(os.path.join(scene.model_path, "densify_comparison"), exist_ok=True)
                         
-                #     # 渲染当前视角的图像（密度化前）
-                #     with torch.no_grad():
-                #         pre_densify_render = render_htet(viewpoint_cam, tets, bg, lod=tets.current_lod_depth, feature_interp_mode=opt.feature_interp_mode)
-                #         pre_densify_image = torch.clamp(pre_densify_render["render"], 0.0, 1.0)
-                #         torchvision.utils.save_image(pre_densify_image, os.path.join(scene.model_path, "densify_comparison", f"iter_{iteration}_pre_densify.png"))
+                    # 渲染当前视角的图像（密度化前）
+                    # with torch.no_grad():
+                    #     pre_densify_render = render_htet(viewpoint_cam, tets, bg, lod=tets.current_lod_depth, feature_interp_mode=opt.feature_interp_mode)
+                    #     pre_densify_image = torch.clamp(pre_densify_render["render"], 0.0, 1.0)
+                    #     torchvision.utils.save_image(pre_densify_image, os.path.join(scene.model_path, "densify_comparison", f"iter_{iteration}_pre_densify.png"))
                     
-                #     # 执行密度化和剪枝操作
-                #     tets.densify_and_prune(viewpoint_cam,opt.densify_grad_threshold, 0.05, scene.cameras_extent, size_threshold)
+                    # 执行密度化和剪枝操作
+                    tets.densify_and_prune(viewpoint_cam,opt.densify_grad_threshold, 0.05, scene.cameras_extent, size_threshold)
                     
                 #     # 渲染同一视角的图像（密度化后）
                 #     with torch.no_grad():
