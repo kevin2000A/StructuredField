@@ -69,7 +69,7 @@ For best results, we recommend initializing with tetrahedral meshes. The workflo
 
 For convenience and reproduction, we provide pre-computed initial meshes for NeRF Synthetic dataset:
 
-**Download Link**: [Google_Drive]([https://github.com/wildmeshing/fTetWild](https://drive.google.com/drive/folders/1ojsiu5HVeb6nz1Wj-Lite34avnJ6_ktW?usp=share_link))
+**Download Link**: https://drive.google.com/drive/folders/1ojsiu5HVeb6nz1Wj-Lite34avnJ6_ktW?usp=share_link
 
 Download and place the meshes in the `data` folder:
 
